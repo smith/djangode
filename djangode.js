@@ -1,6 +1,6 @@
 var http = require('http'),
     sys = require('sys'),
-    posix = require('posix');
+    fs = require('fs');
 
 function extname(path) {
     var index = path.lastIndexOf('.');
@@ -13,14 +13,14 @@ exports.serveFile = function(req, res, filename) {
     var content_type = mime.lookup(extname(filename));
     var encoding = (content_type.slice(0,4) === 'text' ? 'utf8' : 'binary');
     var status = 200;
-    
+
     function loadResponseData(callback) {
         if (body && headers) {
             callback();
             return;
         }
         sys.puts("loading " + filename + "...");
-        var promise = posix.cat(filename, encoding);
+        var promise = fs.cat(filename, encoding);
         promise.addCallback(function(data) {
             body = data;
             headers = [
