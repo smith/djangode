@@ -1,5 +1,4 @@
-var dj = require('./djangode'),
-    debug = require("./debug/debug");
+var dj = require('./djangode');
 
 var app = dj.makeApp([
     ['^/$', function(req, res) {
@@ -31,4 +30,3 @@ var app = dj.makeApp([
 ]);
 
 dj.serve(app, 8009);
-//debug.listen(8080);
